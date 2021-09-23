@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\RolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserLoginController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,7 +19,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('test',[UserController::class,'index']);
+Route::get('test',[UserLoginController::class,'index']);
+Route::post('test',[UserLoginController::class,'store']);
+Route::put('test/{id}',[UserLoginController::class,'store']);
+
+Route::get('createRol',[RolController::class,'index']);
+Route::post('createRol',[RolController::class,'store']);
+Route::put('createRol/{rols}',[RolController::class,'update']);
+Route::delete('createRol/{rols}',[RolController::class,'destroy']);
 
 Route::get('/hola',function (){
   return "hola mundo";

@@ -10,27 +10,40 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Responses
      */
-    public function index()
+    public function index(String $emails,String $passwords)
     {
        // $user = User::all();
         //return $user;
+        $i=0;
+        $j=1;
         $connection=pg_pconnect("dbname=login2 user=postgres password=postgres");
         if(!$connection)
         {
           echo "Error Ocurred.\n";
           exit;
         }else{
-          $result=pg_query($connection,"SELECT name, email From users");
+          $result=pg_query($connection,"SELECT email, password From users");
 
             if(!$result){
               echo "Error Ocurred.\n";
               exit;
             }else{
                 while ($row=pg_fetch_row($result)){
+                    $cadena1=""+$row[$i];
+                    $cadena2=""+$row[$j];
+                   if($cadena1==$emails && $cadena2==$passwords){
+                   echo "logged sucessful";
+                   }else{
+                   echo "not exist user";
+                   
+                   }
+
                    echo "Name: $row[0] E-mail: $row[1]";
                    echo "\n";
+                   $i=$i+2;
+                   $j=$j+2;
                 }
             }
         }
